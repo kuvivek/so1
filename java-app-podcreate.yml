@@ -17,6 +17,9 @@ spec:
       image: kuvivek/users-mysql:0.1.0
       ports:
         - containerPort: 8086
+      env:
+        - name: MYSQL_HOST
+          value: mysql-standalone
       envFrom:
         - configMapRef:
             name: javaapp-configmap 

@@ -17,16 +17,18 @@ spec:
           image: kuvivek/users-mysql:0.1.0
           ports:
             - containerPort: 8086
-
+          env:
+            - name: DATABASE_HOST
+              value: mysql-standalone
           envFrom:
             - configMapRef:
-                name: javaapp-configmap 
+                name: javaapp-configmap
 
 ---
-apiVersion: v1 
-kind: ConfigMap 
+apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: javaapp-configmap 
+  name: javaapp-configmap
 data:
   keys: | 
     spring.datasource.url=jdbc:mysql://mysql-standalone:3306/test

@@ -33,5 +33,5 @@ metadata:
   name: mysql-initdb-config
 data:
   initdb.sql: |
-    CREATE TABLE test (id INT, name VARCHAR(256), age INT, gender VARCHAR(3));
-    INSERT INTO test VALUES (1, 'Vivek Kumar', 39, 'm');
+    CREATE TABLE users (id INT, name VARCHAR(256), salary INT, teamName VARCHAR(256));
+    INSERT INTO test VALUES (1, 'Sam', 3400, 'Development');

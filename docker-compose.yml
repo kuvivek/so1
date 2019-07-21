@@ -9,6 +9,7 @@ services:
     depends_on:
       - mysql
     environment:
+      DATABASE_HOST: mysql-standalone
       SPRING_APPLICATION_JSON: '{
       "spring.datasource.url": "jdbc:mysql://mysql-standalone:3306/test",
     }'
