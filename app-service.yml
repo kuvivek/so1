@@ -5,20 +5,20 @@ metadata:
 spec:
   # The type of Service is ClusterIP, and not NodePort, as it will be
   # accessible to outside world.
-  type: ClusterIP
+  type: NodePort
   # Get the selector so that this service knows, what set of Pod, it
   # supposed to be providing access to. In order to properly select to
   # the client deployment, so look for the templates->label->component
   selector: 
     component: java-app
-  ports:    
+  ports:
+      # Giving the same port for the Service as it is easy to remember for 
+      # port mapping from service object to pod object 
     - port: 8086
       # 'port' is the service port and 
-      # 'targetPort' is the container port where the java service is running
+      # 'targetPort' is the container port where the java container is running
       targetPort: 8086
-      # There is no nodePort for the outside world, I will create an
-      # Ingress Service wherein I will add the nodePort, so that 
-      # external world can connect to.
-
+      # since this is the main port which is used as, accessible to outside world.
+      nodePort: 31086
 
 
