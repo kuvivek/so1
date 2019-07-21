@@ -9,7 +9,7 @@ spec:
       component: java-app
   template:
     metadata:
-      label:
+      labels:
         component: java-app
     spec:
       containers:
