@@ -1,3 +1,2 @@
 # so1
-Kubernetes Deployment Code
-
+Multi-container App on Kubernetes
