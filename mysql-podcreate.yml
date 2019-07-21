@@ -3,7 +3,8 @@ kind: Pod
 metadata:
   name: mysql-db-pod
   labels:
-    component: mysql-db
+    name: mysql-db-pod
+    context: docker-k8s-lab
 spec:
   containers:
     - name: mysqldb-standalone
@@ -19,3 +20,19 @@ spec:
          value: test
       ports:
        - containerPort: 3306
+      volumeMounts:
+        - name: mysql-initdb
+          mountPath: /docker-entrypoint-initdb.d
+  volumes:
+    - name: mysql-initdb
+      configMap:
+        name: mysql-initdb-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-initdb-config
+data:
+  initdb.sql: |
+    CREATE TABLE test (id INT, name VARCHAR(256), age INT, gender VARCHAR(3));
+    INSERT INTO test VALUES (1, 'Vivek Kumar', 39, 'm');
