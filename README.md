@@ -1,7 +1,9 @@
 # so1
 Multi-container App on Kubernetes
 
-vivek@vivek:~/Desktop/Docker/so1$ sudo docker build -t kuvivek/users-mysql:latest .
+Building an image
+```
+vivek@vivek:~/Desktop/Docker/so1$ sudo docker build -t kuvivek/users-mysql:latest .`
 [sudo] password for vivek: 
 Sending build context to Docker daemon  1.418GB
 Step 1/12 : FROM alpine/git as clone
@@ -39,6 +41,11 @@ Step 12/12 : ENTRYPOINT ["java", "-jar", "users-mysql.jar"]
  ---> 1832eeb7ef70
 Successfully built 1832eeb7ef70
 Successfully tagged kuvivek/users-mysql:latest
+```
+
+Tagging the image and pushing it to the docker hub.
+
+```
 vivek@vivek:~/Desktop/Docker/so1$ sudo docker tag kuvivek/users-mysql kuvivek/users-mysql:0.1.0
 vivek@vivek:~/Desktop/Docker/so1$ sudo docker push kuvivek/users-mysql:0.1.0
 The push refers to repository [docker.io/kuvivek/users-mysql]
@@ -49,4 +56,4 @@ edd61588d126: Mounted from library/openjdk
 f1b5933fe4b5: Mounted from library/openjdk 
 0.1.0: digest: sha256:8be15223ed4e1c86b7b6679a251397338a6349d8a31b3033971fdbfb11db3623 size: 1365
 vivek@vivek:~/Desktop/Docker/so1$ 
-
+```
