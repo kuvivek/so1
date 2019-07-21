@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mysql-db-pod
+  labels:
+    component: mysql-db
+spec:
+  containers:
+    - name: mysqldb-container
+      image: mysql:5.6
+      ports:
+       - containerPort: 3306

@@ -1,0 +1,19 @@
+apiVersion: v1
+
+# The apiVersion is used to limit the type of Objects. It is a tag to identify 
+# a pool of objects. Hence, it is important to note that the object we define 
+# in the kind properties should contain one of the object type defined under 
+# this v1 version.
+
+kind: Pod
+metadata:
+  name: java-app-pod
+  labels:
+    component: java-app
+spec:
+  containers:
+    - name: users-java-app
+      # Name of the image as listed in the question.
+      image: kuvivek/users-mysql:0.1.0
+      ports:
+        - containerPort: 8181
