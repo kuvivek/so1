@@ -16,4 +16,7 @@ spec:
       # Name of the image as listed in the question.
       image: kuvivek/users-mysql:0.1.0
       ports:
-        - containerPort: 8181
+        - containerPort: 8086
+      envFrom:
+        - configMapRef:
+            name: javaapp-configmap 
