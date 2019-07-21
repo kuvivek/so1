@@ -15,9 +15,32 @@ spec:
       containers:
         - name: mysql-standalone
           image: mysql:5.6
+          env:
+            - name: "MYSQL_USER" 
+              value: "sa"
+            - name: "MYSQL_PASSWORD"
+              value: "password"
+            - name: "MYSQL_ROOT_PASSWORD"
+              value: "password"
+            - name: "MYSQL_DATABASE"
+              value: "test"
           ports:
             - containerPort: 3306
-          env:
-            - name: MYSQL_ROOT_PASSWORD
-              value: password
+          volumeMounts:
+            - name: mysql-initdb
+              mountPath: /docker-entrypoint-initdb.d
+              
+      volumes:
+        - name: mysql-initdb
+          configMap:
+            name: mysql-initdb-config
 
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-initdb-config
+data:
+  initdb.sql: |
+    CREATE TABLE test (id INT, name VARCHAR(256), age INT, gender VARCHAR(3));
+    INSERT INTO test VALUES (1, 'Vivek Kumar', 39, 'm');

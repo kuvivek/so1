@@ -12,10 +12,10 @@ spec:
   selector: 
     component: java-app
   ports:    
-    - port: 8181
+    - port: 8086
       # 'port' is the service port and 
       # 'targetPort' is the container port where the java service is running
-      targetPort: 8181
+      targetPort: 8086
       # There is no nodePort for the outside world, I will create an
       # Ingress Service wherein I will add the nodePort, so that 
       # external world can connect to.

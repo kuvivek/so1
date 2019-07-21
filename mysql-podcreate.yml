@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: mysql-db-pod
   labels:
-    name: mysql-db-pod
+    component: mysql-db
 spec:
   containers:
     - name: "mysql-standalone"

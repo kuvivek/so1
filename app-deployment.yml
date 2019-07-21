@@ -13,9 +13,20 @@ spec:
         component: java-app
     spec:
       containers:
-        - name: users-app
+        - name: users-java-app
           image: kuvivek/users-mysql:0.1.0
           ports:
-            - containerPort: 8181
+            - containerPort: 8086
 
+          envFrom:
+            - configMapRef:
+                name: javaapp-configmap 
 
+---
+apiVersion: v1 
+kind: ConfigMap 
+metadata:
+  name: javaapp-configmap 
+data:
+  keys: | 
+    spring.datasource.url=jdbc:mysql://mysql-standalone:3306/test
