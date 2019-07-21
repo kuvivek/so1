@@ -4,20 +4,19 @@ metadata:
   name: mysql-db-pod
   labels:
     name: mysql-db-pod
-    context: docker-k8s-lab
 spec:
   containers:
-    - name: mysqldb-standalone
+    - name: "mysql-standalone"
       image: mysql:5.6
       env:
-       - name: MYSQL_USER 
-         value: sa
-       - name: MYSQL_PASSWORD
-         value: password
-       - name: MYSQL_ROOT_PASSWORD
-         value: password
-       - name: MYSQL_DATABASE
-         value: test
+       - name: "MYSQL_USER" 
+         value: "sa"
+       - name: "MYSQL_PASSWORD"
+         value: "password"
+       - name: "MYSQL_ROOT_PASSWORD"
+         value: "password"
+       - name: "MYSQL_DATABASE"
+         value: "test"
       ports:
        - containerPort: 3306
       volumeMounts:
