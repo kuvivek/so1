@@ -20,3 +20,13 @@ spec:
       envFrom:
         - configMapRef:
             name: javaapp-configmap 
+
+---
+apiVersion: v1 
+kind: ConfigMap 
+metadata:
+  name: javaapp-configmap 
+data:
+  # set as complete file contents (even JSON!)
+  keys: | 
+    spring.datasource.url=jdbc:mysql://mysql-standalone:3306/test
