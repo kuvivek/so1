@@ -57,3 +57,32 @@ f1b5933fe4b5: Mounted from library/openjdk
 0.1.0: digest: sha256:8be15223ed4e1c86b7b6679a251397338a6349d8a31b3033971fdbfb11db3623 size: 1365
 vivek@vivek:~/Desktop/Docker/so1$ 
 ```
+
+In order to verify with the docker-compose, to luanch both Spring Boot java application and mysql database
+
+Execute the following command as listed below
+
+vivek@vivek:~/Desktop/Docker/so1$ 
+vivek@vivek:~/Desktop/Docker/so1$ sudo docker-compose up -d
+[sudo] password for vivek: 
+Creating network "so1_internal" with the default driver
+Creating mysql-standalone ... 
+Creating mysql-standalone ... done
+Creating so1_users-mysql_1 ... 
+Creating so1_users-mysql_1 ... done
+vivek@vivek:~/Desktop/Docker/so1$ 
+vivek@vivek:~/Desktop/Docker/so1$ 
+
+
+In order to verify whether, the services are currently running or not, check for both the processes
+
+vivek@vivek:~/Desktop/Docker/so1$ 
+vivek@vivek:~/Desktop/Docker/so1$ sudo docker-compose ps
+      Name                    Command             State            Ports         
+---------------------------------------------------------------------------------
+mysql-standalone    docker-entrypoint.sh mysqld   Up      0.0.0.0:32768->3306/tcp
+so1_users-mysql_1   java -jar users-mysql.jar     Up      0.0.0.0:8086->8086/tcp 
+vivek@vivek:~/Desktop/Docker/so1$ 
+vivek@vivek:~/Desktop/Docker/so1$ 
+
+
