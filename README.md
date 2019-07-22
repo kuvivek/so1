@@ -80,9 +80,94 @@ vivek@vivek:~/Desktop/Docker/so1$
 vivek@vivek:~/Desktop/Docker/so1$ sudo docker-compose ps
       Name                    Command             State            Ports         
 ---------------------------------------------------------------------------------
-mysql-standalone    docker-entrypoint.sh mysqld   Up      0.0.0.0:32768->3306/tcp
+mysql-standalone    docker-entrypoint.sh mysqld   Up      0.0.0.0:3306->3306/tcp
 so1_users-mysql_1   java -jar users-mysql.jar     Up      0.0.0.0:8086->8086/tcp 
 vivek@vivek:~/Desktop/Docker/so1$ 
 vivek@vivek:~/Desktop/Docker/so1$ 
 
+In order to deploy and test in the Kubernetes, please look for the steps below.
+
+1) Start the minikube
+$
+$ minikube start
+* minikube v1.2.0 on linux (amd64)
+* Creating none VM (CPUs=2, Memory=2048MB, Disk=20000MB) ...
+* Configuring environment for Kubernetes v1.15.0 on Docker 18.09.5
+  - kubelet.resolv-conf=/run/systemd/resolve/resolv.conf
+* Pulling images ...
+* Launching Kubernetes ...
+* Configuring local host environment ...
+* Verifying: apiserver proxy etcd scheduler controller dns
+* Done! kubectl is now configured to use "minikube"
+$
+$
+
+2) Create a folder like so1 under the /opt file system.
+$ mkdir -p /opt/so1
+$
+$
+
+3) Create a deployment plan, beneath this folder. The deployment plan created within this
+is under the namespace of users-credential.
+
+$
+$ cd /opt/so1
+$
+$ vi complete-demo.yml
+$
+
+4) First create a namespace, so that all your resources are within that namespace.
+
+$
+$ kubectl create namespace users-credential
+namespace/users-credential created
+$
+
+5) Apply the namespace within so that necessary resources are create within the namespace
+viz. users-credential.
+
+$
+$ kubectl apply -f complete-demo.yml
+deployment.extensions/users created
+configmap/javaapp-configmap created
+service/users created
+deployment.extensions/mysql-db created
+service/mysql-db created
+$
+$ kubectl get pods
+No resources found.
+$
+$ kubectl get pods -n users-credential
+NAME                       READY   STATUS              RESTARTS   AGE
+mysql-db-fbdc74944-krk7f   0/1     ContainerCreating   0          17s
+users-b8dc5449f-vdn2j      1/1     Running             0          17s
+$
+$
+
+In order to scale up the java application resource, it can be increased or decreased by
+making neccessary change at Line number 9. And then applying the consolidated configuration
+file.
+
+$
+$ grep -rn -C4 "replicas" complete-demo.yml
+5-  labels:
+6-    name: users
+7-  namespace: users-credential
+8-spec:
+9:  replicas: 1
+10-  template:
+11-    metadata:
+12-      labels:
+13-        name: users
+--
+73-  labels:
+74-    name: mysql-db
+75-  namespace: users-credential
+76-spec:
+77:  replicas: 1
+78-  template:
+79-    metadata:
+80-      labels:
+81-        name: mysql-db
+$
 
