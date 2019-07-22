@@ -17,9 +17,9 @@ spec:
         image: kuvivek/users-mysql:0.1.0
         ports:
          - containerPort: 8086
-        env:
-         - name: JAVA_OPTS
-           value: -Xms64m -Xmx128m -XX:PermSize=32m -XX:MaxPermSize=64m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom
+        #env:
+        # - name: JAVA_OPTS
+        #   value: -Xms64m -Xmx128m -XX:PermSize=32m -XX:MaxPermSize=64m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom
         envFrom:
           - configMapRef:
               name: javaapp-configmap  
@@ -46,6 +46,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: javaapp-configmap
+  namespace: users-credential
 data:
   keys: |
     spring.datasource.url=jdbc:mysql://mysql-standalone:3306/test
@@ -83,10 +84,10 @@ spec:
       - name: msysql-standlone
         image: mysql:5.6
         env:
-          - name: MYSQL_ROOT_PASSWORD
-            value: password
-          - name: MYSQL_DATABASE
-            value: test
+          - name: "MYSQL_ROOT_PASSWORD"
+            value: "password"
+          - name: "MYSQL_DATABASE"
+            value: "test"
           - name: "MYSQL_USER"
             value: "sa"
           - name: "MYSQL_PASSWORD"
