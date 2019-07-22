@@ -61,7 +61,7 @@ vivek@vivek:~/Desktop/Docker/so1$
 In order to verify with the docker-compose, to luanch both Spring Boot java application and mysql database
 
 Execute the following command as listed below
-
+```
 vivek@vivek:~/Desktop/Docker/so1$ 
 vivek@vivek:~/Desktop/Docker/so1$ sudo docker-compose up -d
 [sudo] password for vivek: 
@@ -72,10 +72,10 @@ Creating so1_users-mysql_1 ...
 Creating so1_users-mysql_1 ... done
 vivek@vivek:~/Desktop/Docker/so1$ 
 vivek@vivek:~/Desktop/Docker/so1$ 
-
+```
 
 In order to verify whether, the services are currently running or not, check for both the processes
-
+```
 vivek@vivek:~/Desktop/Docker/so1$ 
 vivek@vivek:~/Desktop/Docker/so1$ sudo docker-compose ps
       Name                    Command             State            Ports         
@@ -84,10 +84,11 @@ mysql-standalone    docker-entrypoint.sh mysqld   Up      0.0.0.0:3306->3306/tcp
 so1_users-mysql_1   java -jar users-mysql.jar     Up      0.0.0.0:8086->8086/tcp 
 vivek@vivek:~/Desktop/Docker/so1$ 
 vivek@vivek:~/Desktop/Docker/so1$ 
-
+```
 In order to deploy and test in the Kubernetes, please look for the steps below.
 
 1) Start the minikube
+```
 $
 $ minikube start
 * minikube v1.2.0 on linux (amd64)
@@ -101,31 +102,38 @@ $ minikube start
 * Done! kubectl is now configured to use "minikube"
 $
 $
+```
 
 2) Create a folder like so1 under the /opt file system.
+```
 $ mkdir -p /opt/so1
 $
 $
-
+```
 3) Create a deployment plan, beneath this folder. The deployment plan created within this
 is under the namespace of users-credential.
 
+```
 $
 $ cd /opt/so1
 $
 $ vi complete-demo.yml
 $
+```
+4) First create a namespace, so that all your resources are within that namespace, as all
+the resources, which I have created is under the users-credential
 
-4) First create a namespace, so that all your resources are within that namespace.
-
+```
 $
 $ kubectl create namespace users-credential
 namespace/users-credential created
 $
+```
 
 5) Apply the namespace within so that necessary resources are create within the namespace
 viz. users-credential.
 
+```
 $
 $ kubectl apply -f complete-demo.yml
 deployment.extensions/users created
@@ -143,11 +151,13 @@ mysql-db-fbdc74944-krk7f   0/1     ContainerCreating   0          17s
 users-b8dc5449f-vdn2j      1/1     Running             0          17s
 $
 $
+```
 
 In order to scale up the java application resource, it can be increased or decreased by
 making neccessary change at Line number 9. And then applying the consolidated configuration
 file.
 
+```
 $
 $ grep -rn -C4 "replicas" complete-demo.yml
 5-  labels:
@@ -170,4 +180,4 @@ $ grep -rn -C4 "replicas" complete-demo.yml
 80-      labels:
 81-        name: mysql-db
 $
-
+```
